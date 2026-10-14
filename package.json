@@ -61,6 +61,7 @@
     "lint:fix": "eslint src --max-warnings 0 --fix",
     "create": "plop --plopfile scripts/plop/plopfile.js",
     "test": "web-test-runner --group default",
+    "test:metadata": "node scripts/make-metadata.js --outdir dist && node --test scripts/cem-type-references.test.js",
     "test:component": "web-test-runner -- --watch --group",
     "test:watch": "web-test-runner --watch --group default",
     "spellcheck": "cspell \"**/*.{js,ts,json,html,css,md}\" --no-progress",
