@@ -6,6 +6,7 @@ import { parse } from 'comment-parser';
 import { pascalCase } from 'pascal-case';
 import commandLineArgs from 'command-line-args';
 import fs from 'fs';
+import { typeReferencesPlugin } from './scripts/cem-type-references.js';
 
 const packageData = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 const { name, description, version, author, homepage, license } = packageData;
@@ -225,6 +226,10 @@ export default {
       outdir: './dist/types/vue',
       fileName: 'index.d.ts',
       componentTypePath: (_, tag) => `../../components/${tag.replace('sl-', '')}/${tag.replace('sl-', '')}.component.js`
-    })
+    }),
+
+    // Run last: legacy integration generators do not understand CEM references
+    // and assume event aliases are exported by each component module.
+    typeReferencesPlugin()
   ]
 };
